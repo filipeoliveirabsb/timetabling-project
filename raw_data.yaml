@@ -93,14 +93,20 @@ agents:
   - s84
   - s85
 
-# [agent, absence[absence_type, month, [days]]
-#escale_constraints:
-#  - [ "s1", [["LI", "sep", [d1, d2, d3, d4, d5]], ["FE", "oct", [d1, d2, d3, d4, d5]]]
-#  - [ "s32", [["LI", "sep", [d1, d2]], ["DO", "sep", [d20]]]
-
 # VA=vacation, DO=day off, LI=license, AJ=workload adjust
 absence_type:
   - VA
   - DO
   - LI
   - AJ
+
+# month[agent[absence[absence_type, days[]]]]
+scale_constraints:
+  - agent: "s1"
+    absence:
+      - { absence_type: "VA" }
+      - { days: d1, d2, d3, d4, d5, d6, d7, d8, d9, d10 }
+  - agent: "s2"
+    absence:
+      - { absence_type: "LI" }
+      - { days: d1, d2, d3 }
