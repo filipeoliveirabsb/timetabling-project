@@ -3,7 +3,14 @@ import pandas as pd
 import random
 from ruamel.yaml import YAML
 
+# *---------------- RULES ---------------------*
+# optimal number of hours in month / agent=160h
+# max hours in month / agent = 168h
+# min agents / day in module = 2
+# max agents / day in module = 4 (team lenght) 
 
+
+# generate time_table scale
 def get_time_table(data, module_name):
     time_table = pd.DataFrame(index=data["agents"], columns=data["days"])
 
@@ -20,7 +27,9 @@ def get_time_table(data, module_name):
     team_safe = 1
 
     for day in range(len(days)):
+        
         for agent in range(len(agents)):
+            
             for sch in range(len(schedule)):
                 # indx = agent + day * len(agents) + module_name * len(days) * len(agents)
                 # print(sch)
@@ -45,3 +54,8 @@ if __name__ == '__main__':
     for c in data["modules"]:
         print("module : {}".format(c))
         print(get_time_table(data, c))
+
+# gerar 24 escalas pelas combinações de times. Ex:
+# Escala1 => d1=t1, d2=t2, d3=t3, d4=t4
+# Escala2 => d1=t2, d2=t4, d3=t3, d4=t1
+#...

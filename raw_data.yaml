@@ -57,22 +57,22 @@ months:
 
 # [module, agent id, team]
 module_schedule:
-  - ["m1", "s1", 1]
-  - ["m1", "s2", 1]
-  - ["m1", "s3", 1]
-  - ["m1", "s4", 1]
-  - ["m1", "s29", 2]
-  - ["m1", "s30", 2]
-  - ["m1", "s31", 2]
-  - ["m1", "s32", 2]
-  - ["m1", "s56", 3]
-  - ["m1", "s57", 3]
-  - ["m1", "s58", 3]
-  - ["m1", "s59", 3]
-  - ["m1", "s82", 4]
-  - ["m1", "s83", 4]
-  - ["m1", "s84", 4]
-  - ["m1", "s85", 4]
+  - [m1, s1, 1]
+  - [m1, s2, 1]
+  - [m1, s3, 1]
+  - [m1, s4, 1]
+  - [m1, s29, 2]
+  - [m1, s30, 2]
+  - [m1, s31, 2]
+  - [m1, s32, 2]
+  - [m1, s56, 3]
+  - [m1, s57, 3]
+  - [m1, s58, 3]
+  - [m1, s59, 3]
+  - [m1, s82, 4]
+  - [m1, s83, 4]
+  - [m1, s84, 4]
+  - [m1, s85, 4]
 
 # agent id
 agents:
@@ -110,3 +110,15 @@ scale_constraints:
     absence:
       - { absence_type: "LI" }
       - { days: d1, d2, d3 }
+  - agent: "s32"
+    absence:
+      - { absence_type: "LI" }
+      - { days: d11, d12, d13 }
+  - agent: "s58"
+    absence:
+      - { absence_type: "VA" }
+      - { days: d20, d21, d22, d23, d24, d25 }
+  - agent: "s83"
+    absence:
+      - { absence_type: "VA" }
+      - { days: d26, d27, d28, d29, d30, d31 }
