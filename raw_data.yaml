@@ -1,0 +1,106 @@
+modules:
+  - m1
+#  - m2
+#  - m3
+#  - m4
+#  - m5
+#  - m6
+#  - m7
+
+days:
+  - d1
+  - d2
+  - d3
+  - d4
+  - d5
+  - d6
+  - d7
+  - d8
+  - d9
+  - d10
+  - d11
+  - d12
+  - d13
+  - d14
+  - d15
+  - d16
+  - d17
+  - d18
+  - d19
+  - d20
+  - d21
+  - d22
+  - d23
+  - d24
+  - d25
+  - d26
+  - d27
+  - d28
+  - d29
+  - d30
+  - d31
+
+# [month, number of days]
+months:
+  - ["jan", 31]
+  - ["feb", 28]
+  - ["mar", 31]
+  - ["apr", 30]
+  - ["may", 31]
+  - ["jun", 30]
+  - ["jul", 31]
+  - ["aug", 31]
+  - ["sep", 30]
+  - ["oct", 31]
+  - ["nov", 30]
+  - ["dec", 31]
+
+# [module, agent id, team]
+module_schedule:
+  - ["m1", "s1", 1]
+  - ["m1", "s2", 1]
+  - ["m1", "s3", 1]
+  - ["m1", "s4", 1]
+  - ["m1", "s29", 2]
+  - ["m1", "s30", 2]
+  - ["m1", "s31", 2]
+  - ["m1", "s32", 2]
+  - ["m1", "s56", 3]
+  - ["m1", "s57", 3]
+  - ["m1", "s58", 3]
+  - ["m1", "s59", 3]
+  - ["m1", "s82", 4]
+  - ["m1", "s83", 4]
+  - ["m1", "s84", 4]
+  - ["m1", "s85", 4]
+
+# agent id
+agents:
+  - s1
+  - s2
+  - s3
+  - s4
+  - s29
+  - s30
+  - s31
+  - s32
+  - s56
+  - s57
+  - s58
+  - s59
+  - s82
+  - s83
+  - s84
+  - s85
+
+# [agent, absence[absence_type, month, [days]]
+#escale_constraints:
+#  - [ "s1", [["LI", "sep", [d1, d2, d3, d4, d5]], ["FE", "oct", [d1, d2, d3, d4, d5]]]
+#  - [ "s32", [["LI", "sep", [d1, d2]], ["DO", "sep", [d20]]]
+
+# VA=vacation, DO=day off, LI=license, AJ=workload adjust
+absence_type:
+  - VA
+  - DO
+  - LI
+  - AJ
