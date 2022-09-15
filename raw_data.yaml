@@ -101,7 +101,7 @@ absence_type:
   - AJ
 
 # month[agent[absence[absence_type, days[]]]]
-scale_constraints:
+absences:
   - agent: "s1"
     absence:
       - { absence_type: "VA" }
@@ -148,3 +148,7 @@ scale_possibilities:
   - [t4, t2, t3, t1]
   - [t4, t3, t1, t2]
   - [t4, t3, t2, t1]
+
+# last_team
+last_schedule:
+  - t1

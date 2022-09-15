@@ -12,7 +12,7 @@ from ruamel.yaml import YAML
 
 # A solução deve:
 # 1) gerar as escalas com o algoritmo heuristico 
-#    com o arranjo de times (até 24).
+#    com o arranjo de times (até 18).
 #    Ex:
 #       Escala1 => d1=t1, d2=t2, d3=t3, d4=t4
 #       Escala2 => d1=t2, d2=t4, d3=t3, d4=t1
@@ -37,7 +37,7 @@ def get_scale_constraints(team):
     return constraints
 
 # generate time_table scale with heuristic algorithm
-def get_time_tables(data, possibility):
+def get_time_tables(data, poss):
     time_table = pd.DataFrame(index=data["agents"], columns=data["days"])
 
     modules = data["modules"]
@@ -45,19 +45,36 @@ def get_time_tables(data, possibility):
     agents = data["agents"]
     schedule = data["team_schedule"]
 
-    shape = (len(modules) * len(days) * len(agents), len(schedule))
-    genes = np.zeros(shape, dtype=np.int32)
+    #shape = (len(modules) * len(days) * len(agents), len(schedule))
+    #genes = np.zeros(shape, dtype=np.int32)
 
-    for j in range(len(possibility)):
-        team = possibility[j]
-        print(team)
+    #for j in range(len(poss)):
+        
+        #print(poss)
+    (first, second, third, fourth) = poss
+        
+    for k in range(len(schedule)):
+    
+        (team, team_agent, module) = schedule[k]
+
+        # apenas um exemplo de escala do time X se ele for o primeiro do mês
+        if team == first:
+
+            for day in range(len(days)):
+                for agent in range(len(agents)):
+                    print(day)
+                    print(agent)
+                    print(team_agent)
+                    if (agents[agent] == team_agent and day % 5 == 0):
+                        time_table.iloc[agent, day] = 24
+                    
+
 
         """ team_agents = schedule[j].index(team)
         print(team_agents) """
 
-    for day in range(len(days)):
         
-        for agent in range(len(agents)):
+        """ for agent in range(len(agents)):
             
             for sch in range(len(schedule)):
                 # indx = agent + day * len(agents) + module_name * len(days) * len(agents)
@@ -66,7 +83,7 @@ def get_time_tables(data, possibility):
                 (team, _, _) = schedule[sch]
                 team_safe = 't1'
                 if team == team_safe:
-                    time_table.iloc[agent, day] = "X"
+                    time_table.iloc[agent, day] = "X" """
 
     return time_table        
 
@@ -78,15 +95,25 @@ if __name__ == '__main__':
 
     #print(data)
     possibilities = data["scale_possibilities"]
+    last_schedule = data["last_schedule"]
 
 
     for i in range(len(possibilities)):
         #for c in data["modules"]:
         #print("module : {}".format(c))
-        print(i)
-        print("------- Possibility -------")
-        pos = possibilities[i]
-        print(pos)
-        print("---------------------------")
-        print(get_time_tables(data, pos))
+        #print(i)
+        #print("------- Possibility -------")
+        
+        poss = possibilities[i]
+
+        #print(pos)
+        #print("---------------------------")
+
+        (first, _, _, _) = possibilities[i]
+        (last_team) = last_schedule[0]
+
+        #print(first)
+        #print(last_team)
+        if last_team != first:
+            print(get_time_tables(data, poss))
 
