@@ -28,7 +28,7 @@ def get_time_table(data, module_name):
                 (module, _, team) = schedule[sch]
 
                 if team == team_safe:
-                    time_table.iloc[agent, day] = "{}".format(module)
+                    time_table.iloc[agent, day] = "X"
 
     return time_table
 
