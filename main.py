@@ -28,13 +28,11 @@ from ruamel.yaml import YAML
 #    melhor escala, com setTime para medir o tempo 
 #    de execução
 
-def get_scale_constraints(team):
+def get_employee_absences(team_agent):
     
-    constraints = data["scale_constraints"].index()
+    absences = data["scale_constraints"].index()
 
-    print('test')
-
-    return constraints
+    return absences
 
 # generate time_table scale with heuristic algorithm
 def get_time_tables(data, poss):
@@ -48,16 +46,12 @@ def get_time_tables(data, poss):
     #shape = (len(modules) * len(days) * len(agents), len(schedule))
     #genes = np.zeros(shape, dtype=np.int32)
 
-    #for j in range(len(poss)):
-        
-        #print(poss)
     (first, second, third, fourth) = poss
         
     for k in range(len(schedule)):
     
         (team, team_agent, _) = schedule[k]
 
-        # apenas um exemplo de escala do time X se ele for o primeiro do mês
         if team == first:
 
             (scale_days) = data["scale_days"][0]
@@ -82,17 +76,26 @@ def get_time_tables(data, poss):
 
             create_scheduling(time_table, days, agents, team_agent, scale_days) 
 
-    return time_table 
+    return time_table
+
+
 
 def create_scheduling(time_table, days, agents, team_agent, scale_days):
     for day in range(len(days)):
         for agent in range(len(agents)):
-                    #print(day)
-                    #print(agent)
-                    #print(team_agent)
+                    
             if (agents[agent] == team_agent and day in scale_days):
-                        # if agent hasn't constraints
-                time_table.iloc[agent, day] = 24       
+                
+                # employee absences
+                """ employee_absences = get_employee_absences(team_agent)
+                for ab in range(len(employee_absences)):
+                    (absences_type, absences_days) = employee_absences[ab]
+
+                if day in range(absences_days):
+                    time_table.iloc[agent, day] = absences_type  
+                else: """
+                time_table.iloc[agent, day] = 24
+
 
 if __name__ == '__main__':
     data_file = "./raw_data.yaml"
@@ -101,7 +104,7 @@ if __name__ == '__main__':
     raw_data_file.close()
 
     #print(data)
-    possibilities = data["scale_possibilities"]
+    possibilities = data["order_possibilities"]
     last_schedule = data["last_schedule"]
 
     for i in range(len(possibilities)):
