@@ -62,55 +62,37 @@ def get_time_tables(data, poss):
 
             (scale_days) = data["scale_days"][0]
 
-            for day in range(len(days)):
-                for agent in range(len(agents)):
-                    #print(day)
-                    #print(agent)
-                    #print(team_agent)
-                    if (agents[agent] == team_agent and day in scale_days):
-                        # if agent hasn't constraints
-                        time_table.iloc[agent, day] = 24
+            create_scheduling(time_table, days, agents, team_agent, scale_days)
 
         if team == second:
 
             (scale_days) = data["scale_days"][1]
 
-            for day in range(len(days)):
-                for agent in range(len(agents)):
-                    #print(day)
-                    #print(agent)
-                    #print(team_agent)
-                    if (agents[agent] == team_agent and day in scale_days):
-                        # if agent hasn't constraints
-                        time_table.iloc[agent, day] = 24
+            create_scheduling(time_table, days, agents, team_agent, scale_days)
 
         if team == third:
 
             (scale_days) = data["scale_days"][2]
 
-            for day in range(len(days)):
-                for agent in range(len(agents)):
-                    #print(day)
-                    #print(agent)
-                    #print(team_agent)
-                    if (agents[agent] == team_agent and day in scale_days):
-                        # if agent hasn't constraints
-                        time_table.iloc[agent, day] = 24                        
+            create_scheduling(time_table, days, agents, team_agent, scale_days)                       
                     
         if team == fourth:
 
             (scale_days) = data["scale_days"][3]
 
-            for day in range(len(days)):
-                for agent in range(len(agents)):
+            create_scheduling(time_table, days, agents, team_agent, scale_days) 
+
+    return time_table 
+
+def create_scheduling(time_table, days, agents, team_agent, scale_days):
+    for day in range(len(days)):
+        for agent in range(len(agents)):
                     #print(day)
                     #print(agent)
                     #print(team_agent)
-                    if (agents[agent] == team_agent and day in scale_days):
+            if (agents[agent] == team_agent and day in scale_days):
                         # if agent hasn't constraints
-                        time_table.iloc[agent, day] = 24  
-
-    return time_table        
+                time_table.iloc[agent, day] = 24       
 
 if __name__ == '__main__':
     data_file = "./raw_data.yaml"
