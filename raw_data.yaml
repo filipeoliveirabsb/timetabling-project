@@ -55,7 +55,7 @@ months:
   - ["nov", 30]
   - ["dec", 31]
 
-# [team, agent id, module]
+# [team, employee id, module]
 team_schedule:
   - [t1, s1, m1]
   - [t1, s2, m1]
@@ -74,8 +74,8 @@ team_schedule:
   - [t4, s84, m1]
   - [t4, s85, m1]
 
-# agent id
-agents:
+# employee id
+employees:
   - s1
   - s2
   - s3
@@ -100,25 +100,25 @@ absence_type:
   - LI
   - AJ
 
-# month[agent[absence[absence_type, days[]]]]
+# month[employee[absence[absence_type, days[]]]]
 absences:
-  - agent: "s1"
+  - employee: "s1"
     absence:
       - { absence_type: "VA" }
       - { days: d1, d2, d3, d4, d5, d6, d7, d8, d9, d10 }
-  - agent: "s2"
+  - employee: "s2"
     absence:
       - { absence_type: "LI" }
       - { days: d1, d2, d3 }
-  - agent: "s32"
+  - employee: "s32"
     absence:
       - { absence_type: "LI" }
       - { days: d11, d12, d13 }
-  - agent: "s58"
+  - employee: "s58"
     absence:
       - { absence_type: "VA" }
       - { days: d20, d21, d22, d23, d24, d25 }
-  - agent: "s83"
+  - employee: "s83"
     absence:
       - { absence_type: "VA" }
       - { days: d26, d27, d28, d29, d30, d31 }
