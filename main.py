@@ -44,7 +44,7 @@ def get_time_tables(data, poss):
     days = data["days"]
     agents = data["agents"]
     schedule = data["team_schedule"]
-
+    
     #shape = (len(modules) * len(days) * len(agents), len(schedule))
     #genes = np.zeros(shape, dtype=np.int32)
 
@@ -55,35 +55,60 @@ def get_time_tables(data, poss):
         
     for k in range(len(schedule)):
     
-        (team, team_agent, module) = schedule[k]
+        (team, team_agent, _) = schedule[k]
 
         # apenas um exemplo de escala do time X se ele for o primeiro do mês
         if team == first:
 
+            (scale_days) = data["scale_days"][0]
+
             for day in range(len(days)):
                 for agent in range(len(agents)):
-                    print(day)
-                    print(agent)
-                    print(team_agent)
-                    if (agents[agent] == team_agent and day % 5 == 0):
+                    #print(day)
+                    #print(agent)
+                    #print(team_agent)
+                    if (agents[agent] == team_agent and day in scale_days):
+                        # if agent hasn't constraints
                         time_table.iloc[agent, day] = 24
+
+        if team == second:
+
+            (scale_days) = data["scale_days"][1]
+
+            for day in range(len(days)):
+                for agent in range(len(agents)):
+                    #print(day)
+                    #print(agent)
+                    #print(team_agent)
+                    if (agents[agent] == team_agent and day in scale_days):
+                        # if agent hasn't constraints
+                        time_table.iloc[agent, day] = 24
+
+        if team == third:
+
+            (scale_days) = data["scale_days"][2]
+
+            for day in range(len(days)):
+                for agent in range(len(agents)):
+                    #print(day)
+                    #print(agent)
+                    #print(team_agent)
+                    if (agents[agent] == team_agent and day in scale_days):
+                        # if agent hasn't constraints
+                        time_table.iloc[agent, day] = 24                        
                     
+        if team == fourth:
 
+            (scale_days) = data["scale_days"][3]
 
-        """ team_agents = schedule[j].index(team)
-        print(team_agents) """
-
-        
-        """ for agent in range(len(agents)):
-            
-            for sch in range(len(schedule)):
-                # indx = agent + day * len(agents) + module_name * len(days) * len(agents)
-                # print(sch)
-
-                (team, _, _) = schedule[sch]
-                team_safe = 't1'
-                if team == team_safe:
-                    time_table.iloc[agent, day] = "X" """
+            for day in range(len(days)):
+                for agent in range(len(agents)):
+                    #print(day)
+                    #print(agent)
+                    #print(team_agent)
+                    if (agents[agent] == team_agent and day in scale_days):
+                        # if agent hasn't constraints
+                        time_table.iloc[agent, day] = 24  
 
     return time_table        
 
@@ -96,7 +121,6 @@ if __name__ == '__main__':
     #print(data)
     possibilities = data["scale_possibilities"]
     last_schedule = data["last_schedule"]
-
 
     for i in range(len(possibilities)):
         #for c in data["modules"]:
@@ -114,6 +138,8 @@ if __name__ == '__main__':
 
         #print(first)
         #print(last_team)
+        # descarta que o último do mês anterior seja o primeiro do mês atual
         if last_team != first:
             print(get_time_tables(data, poss))
+            print("fim")
 
