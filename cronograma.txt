@@ -1,0 +1,11 @@
+criação do projeto -- ok
+algoritmo força bruta -- ok
+resolver ausências na escala -- ok
+algoritmo genetico
+
+ajustes para trabalhar por meses
+erros
+api
+interface
+refactor
+comentários em inglês

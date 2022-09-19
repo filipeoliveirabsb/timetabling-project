@@ -105,8 +105,8 @@ absence_type:
 month: 
   jan:
     absences:
-      - [employee: "s1", type: "VA", { days: d4, d5, d6, d7, d8, d9, d10 }]
-      - [employee: "s2", type: "LI", { days: d1, d2, d3 }]
+      - [employee: s1, type: VA, days: [4, 5, 6, 7, 8, 9, 10]]
+      - [employee: s2, type: LI, days: [0, 1, 2, 3, 4]]
 
 
 order_possibilities:

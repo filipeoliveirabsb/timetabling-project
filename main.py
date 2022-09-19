@@ -28,23 +28,27 @@ from ruamel.yaml import YAML
 #    melhor escala, com setTime para medir o tempo 
 #    de execução
 
-def get_employee_absences(team_employee):
-    
-    absences = data["scale_constraints"].index()
+def get_employee_absences(absences, team_employee, day):
 
-    return absences
+    for ab in range(len(absences)):
+        # employee, type of absence, days of absence
+        (emp, toa, doa) = absences[ab]
+        emp = emp['employee']
+        toa = toa['type']
+        doa = doa['days']
+
+        if emp == team_employee:
+            if day in doa:
+                return (_, toa, _)
+        
+    return (_, 0, _)
+        
+        
+
 
 # generate time_table scale with heuristic algorithm
-def get_schedule_tables(data, poss):
+def get_schedule_tables(data, poss, days, employees, schedule, absences):
     schedule_table = pd.DataFrame(index=data["employees"], columns=data["days"])
-
-    modules = data["modules"]
-    days = data["days"]
-    employees = data["employees"]
-    schedule = data["team_schedule"]
-    
-    #shape = (len(modules) * len(days) * len(employees), len(schedule))
-    #genes = np.zeros(shape, dtype=np.int32)
 
     (first, second, third, fourth) = poss
         
@@ -56,45 +60,48 @@ def get_schedule_tables(data, poss):
 
             (scale_days) = data["scale_days"][0]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days)
+            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)
 
         if team == second:
 
             (scale_days) = data["scale_days"][1]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days)
+            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)
 
         if team == third:
 
             (scale_days) = data["scale_days"][2]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days)                       
+            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)                       
                     
         if team == fourth:
 
             (scale_days) = data["scale_days"][3]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days) 
+            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences) 
 
     return schedule_table
 
 
 
-def create_scheduling(schedule_table, days, employees, team_employee, scale_days):
+def create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences):
     for day in range(len(days)):
         for employee in range(len(employees)):
-                    
+                   
             if (employees[employee] == team_employee and day in scale_days):
                 
                 # employee absences
-                """ employee_absences = get_employee_absences(team_employee)
-                for ab in range(len(employee_absences)):
-                    (absences_type, absences_days) = employee_absences[ab]
+                (_, toa, _) = get_employee_absences(absences, team_employee, day)
+                
+                #print(day)
+                #print(doa)
+                #print(emp)
+                #print(team_employee)
 
-                if day in range(absences_days):
-                    time_table.iloc[employee, day] = absences_type  
-                else: """
-                schedule_table.iloc[employee, day] = 24
+                if (toa != 0):
+                    schedule_table.iloc[employee, day] = toa
+                else:
+                    schedule_table.iloc[employee, day] = 24
 
 
 if __name__ == '__main__':
@@ -103,9 +110,19 @@ if __name__ == '__main__':
     data = YAML().load(raw_data_file.read())
     raw_data_file.close()
 
-    #print(data)
+    # copy the data
     possibilities = data["order_possibilities"]
     last_schedule = data["last_schedule"]
+    days = data["days"]
+    employees = data["employees"]
+    schedule = data["team_schedule"]
+
+    absences = data["month"]["jan"]["absences"]
+    # (emp, type_abs, days_abs) = absences[0]
+
+    #print(emp['employee'])
+    #print(type_abs['type'])
+    #print(days_abs['days'])
 
     for i in range(len(possibilities)):
         #for c in data["modules"]:
@@ -121,10 +138,9 @@ if __name__ == '__main__':
         (first, _, _, _) = possibilities[i]
         (last_team) = last_schedule[0]
 
-        #print(first)
-        #print(last_team)
-        # descarta que o último do mês anterior seja o primeiro do mês atual
+        # the last team can't be the first on this month
         if last_team != first:
-            print(get_schedule_tables(data, poss))
-            print("fim")
+            print(get_schedule_tables(data, poss, days, employees, schedule, absences))
+            
+    print("fim")
 
