@@ -1,6 +1,8 @@
 criação do projeto -- ok
 algoritmo força bruta -- ok
 resolver ausências na escala -- ok
+    considerar numero de horas para o AJ
+somar horas trabalhadas por employee no dataframe
 algoritmo genetico
 
 ajustes para trabalhar por meses
