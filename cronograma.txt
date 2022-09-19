@@ -7,7 +7,7 @@ algoritmo genetico
 
 ajustes para trabalhar por meses
 erros
-api
+api -> https://github.com/python-curso/rest-api
 interface
 refactor
 comentários em inglês

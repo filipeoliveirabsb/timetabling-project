@@ -20,10 +20,10 @@ from ruamel.yaml import YAML
 # 2) na geração da escala, 
 #    2.1) considerar as ausências de cada time e 
 #           que há um time (4 empregados) por dia
-#    2.2) gerar randomicamente pelos arranjos da 
-#           ordem dos times    
+#    2.2) considerar as horas de ajustes de carga 
+#           horária
 # 3) somar as horas dos empregados no mês incluir 
-#    na coluna "total horas" no time_table
+#    na coluna "total horas" no schedule_table
 # 4) utilizar o algoritmo genetico pra encontrar a 
 #    melhor escala, com setTime para medir o tempo 
 #    de execução
@@ -43,10 +43,8 @@ def get_employee_absences(absences, team_employee, day):
         
     return (_, 0, _)
         
-        
 
-
-# generate time_table scale with heuristic algorithm
+# generate schedule_table scale with heuristic algorithm
 def get_schedule_tables(data, poss, days, employees, schedule, absences):
     schedule_table = pd.DataFrame(index=data["employees"], columns=data["days"])
 
