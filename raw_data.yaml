@@ -100,28 +100,14 @@ absence_type:
   - LI
   - AJ
 
-# month[employee[absence[absence_type, days[]]]]
-absences:
-  - employee: "s1"
-    absence:
-      - { absence_type: "VA" }
-      - { days: d1, d2, d3, d4, d5, d6, d7, d8, d9, d10 }
-  - employee: "s2"
-    absence:
-      - { absence_type: "LI" }
-      - { days: d1, d2, d3 }
-  - employee: "s32"
-    absence:
-      - { absence_type: "LI" }
-      - { days: d11, d12, d13 }
-  - employee: "s58"
-    absence:
-      - { absence_type: "VA" }
-      - { days: d20, d21, d22, d23, d24, d25 }
-  - employee: "s83"
-    absence:
-      - { absence_type: "VA" }
-      - { days: d26, d27, d28, d29, d30, d31 }
+# month/ 
+
+month: 
+  jan:
+    absences:
+      - [employee: "s1", type: "VA", { days: d4, d5, d6, d7, d8, d9, d10 }]
+      - [employee: "s2", type: "LI", { days: d1, d2, d3 }]
+
 
 order_possibilities:
   - [t1, t2, t3, t4]

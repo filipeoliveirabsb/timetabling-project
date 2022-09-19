@@ -1,10 +1,13 @@
 class GeneticAlgorithm:
     print("Main")
     # def crossover:
+    # quais ajustes para que devem ser feito em caso de erro no crossover?
 
-    #def mutation:
+    # def mutation:
+    # o que é mutação para o nosso problema? 
 
-    #def evolution:
+    # def evolution:
+    # quais genes devem ser escolhidos para uma nova mutação?
 
 class Chromosome:
     print("chromosomes")
