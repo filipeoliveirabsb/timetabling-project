@@ -2,11 +2,13 @@ criação do projeto -- ok
 algoritmo força bruta -- ok
 resolver ausências na escala -- ok
     considerar numero de horas para o AJ -- ok
+    considerar os diferentes meses do ano (28, 30, 31)
     array x número dos dias
 somar horas trabalhadas por employee no dataframe -- ok
 
 algoritmo genetico -> 
     lib mlrose ?
+    https://github.com/handcraftsman/GeneticAlgorithmsWithPython
 
 calcular o tempo de execução (performance)
 
