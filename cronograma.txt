@@ -1,13 +1,19 @@
 criação do projeto -- ok
 algoritmo força bruta -- ok
 resolver ausências na escala -- ok
-    considerar numero de horas para o AJ
-somar horas trabalhadas por employee no dataframe
-algoritmo genetico
+    considerar numero de horas para o AJ -- ok
+    array x número dos dias
+somar horas trabalhadas por employee no dataframe -- ok
 
-ajustes para trabalhar por meses
-erros
+algoritmo genetico -> 
+    lib mlrose ?
+
+calcular o tempo de execução (performance)
+
+tratamento de erros -- ok
+
 api -> https://github.com/python-curso/rest-api
 interface
+
 refactor
-comentários em inglês
+comentários em inglês -- ok

@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import random
 from ruamel.yaml import YAML
 
 # *------------------ RULES ---------------------*
@@ -10,38 +9,40 @@ from ruamel.yaml import YAML
 # min employees / day in module = 2
 # max employees / day in module = 4 (team lenght) 
 
-# A solução deve:
-# 1) gerar as escalas com o algoritmo heuristico 
-#    com o arranjo de times (até 18).
-#    Ex:
-#       Escala1 => d1=t1, d2=t2, d3=t3, d4=t4
-#       Escala2 => d1=t2, d2=t4, d3=t3, d4=t1
+# The algorithm:
+# 1) generate the scales with the heuristic algorithm 
+#    with the team arrangement (up to 18).
+#    e.g:
+#       scale1 => d1=t1, d2=t2, d3=t3, d4=t4
+#       scale2 => d1=t2, d2=t4, d3=t3, d4=t1
 #       ...
-# 2) na geração da escala, 
-#    2.1) considerar as ausências de cada time e 
-#           que há um time (4 empregados) por dia
-#    2.2) considerar as horas de ajustes de carga 
-#           horária
-# 3) somar as horas dos empregados no mês incluir 
-#    na coluna "total horas" no schedule_table
-# 4) utilizar o algoritmo genetico pra encontrar a 
-#    melhor escala, com setTime para medir o tempo 
-#    de execução
+# 2) when generating the scale, the system must: 
+#    2.1) consider the absences of each team and  
+#       that there is one team (4 employees) per day
+#    2.2) consider hours of workload adjustments 
+#
+# 3) add up the hours of employees in the month 
+#    include in the column "total hours" in the 
+#    schedule_table
+# 4) use the genetic algorithm to find the best 
+#    scale, with setTime to measure the execution 
+#    time
 
 def get_employee_absences(absences, team_employee, day):
 
     for ab in range(len(absences)):
         # employee, type of absence, days of absence
-        (emp, toa, doa) = absences[ab]
+        (emp, toa, doa, hrs) = absences[ab]
         emp = emp['employee']
         toa = toa['type']
         doa = doa['days']
-
+        hrs = hrs['hours']
+        
         if emp == team_employee:
             if day in doa:
-                return (_, toa, _)
+                return (toa, hrs)
         
-    return (_, 0, _)
+    return (0, 0)
         
 
 # generate schedule_table scale with heuristic algorithm
@@ -78,6 +79,8 @@ def get_schedule_tables(data, poss, days, employees, schedule, absences):
 
             create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences) 
 
+    schedule_table['total_Horas'] = schedule_table.sum(axis = 1)
+
     return schedule_table
 
 
@@ -89,56 +92,54 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
             if (employees[employee] == team_employee and day in scale_days):
                 
                 # employee absences
-                (_, toa, _) = get_employee_absences(absences, team_employee, day)
+                (toa, hrs) = get_employee_absences(absences, team_employee, day)
                 
-                #print(day)
-                #print(doa)
-                #print(emp)
-                #print(team_employee)
-
                 if (toa != 0):
-                    schedule_table.iloc[employee, day] = toa
+                    schedule_table.iloc[employee, day] = hrs
                 else:
                     schedule_table.iloc[employee, day] = 24
 
 
 if __name__ == '__main__':
-    data_file = "./raw_data.yaml"
-    raw_data_file = open(data_file)
-    data = YAML().load(raw_data_file.read())
-    raw_data_file.close()
 
-    # copy the data
-    possibilities = data["order_possibilities"]
-    last_schedule = data["last_schedule"]
-    days = data["days"]
-    employees = data["employees"]
-    schedule = data["team_schedule"]
+    try:
+        data_file = "./raw_data.yaml"
+        raw_data_file = open(data_file)
+        data = YAML().load(raw_data_file.read())
+        raw_data_file.close()
 
-    absences = data["month"]["jan"]["absences"]
-    # (emp, type_abs, days_abs) = absences[0]
+        # copy the data
+        possibilities = data["order_possibilities"]
+        last_schedule = data["last_schedule"]
+        days = data["days"]
+        employees = data["employees"]
+        schedule = data["team_schedule"]
 
-    #print(emp['employee'])
-    #print(type_abs['type'])
-    #print(days_abs['days'])
+        absences = data["month"]["jan"]["absences"]
+    except:
+        print('There was an error reading the settings file')
+    
+    try:
+        for i in range(len(possibilities)):
+            
+            #print(i)
+            #print("------- Possibility -------")
+            
+            poss = possibilities[i]
 
-    for i in range(len(possibilities)):
-        #for c in data["modules"]:
-        #print("module : {}".format(c))
-        #print(i)
-        #print("------- Possibility -------")
-        
-        poss = possibilities[i]
+            #print(pos)
+            #print("---------------------------")
 
-        #print(pos)
-        #print("---------------------------")
+            (first, _, _, _) = possibilities[i]
+            (last_team) = last_schedule[0]
 
-        (first, _, _, _) = possibilities[i]
-        (last_team) = last_schedule[0]
-
-        # the last team can't be the first on this month
-        if last_team != first:
-            print(get_schedule_tables(data, poss, days, employees, schedule, absences))
+            # the last team can't be the first on current month
+            if last_team != first:
+                print(get_schedule_tables(data, poss, days, employees, schedule, absences))
+                
+    except:
+        print("There was an error generating the scale")
+                        
             
     print("fim")
 
