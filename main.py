@@ -10,15 +10,15 @@ from ruamel.yaml import YAML
 # max employees / day in module = 4 (team lenght) 
 
 # The algorithm:
-# 1) generate the scales with the heuristic algorithm 
-#    with the team arrangement (up to 18).
+# 1) generate the scales with the heuristic algo-
+#    rithm with the team arrangement (up to 18).
 #    e.g:
 #       scale1 => d1=t1, d2=t2, d3=t3, d4=t4
 #       scale2 => d1=t2, d2=t4, d3=t3, d4=t1
 #       ...
 # 2) when generating the scale, the system must: 
 #    2.1) consider the absences of each team and  
-#       that there is one team (4 employees) per day
+#       that there is one team 4 employees/ day
 #    2.2) consider hours of workload adjustments 
 #
 # 3) add up the hours of employees in the month 
