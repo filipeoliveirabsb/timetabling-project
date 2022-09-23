@@ -1,4 +1,5 @@
 import numpy as np
+import pandas
 import pandas as pd
 from ruamel.yaml import YAML
 
@@ -120,8 +121,12 @@ if __name__ == '__main__':
         absences = data["month"]["jan"]["absences"]
     except:
         print('There was an error reading the settings file')
-    
+
+    schedule_tables = []
+    df = pandas.DataFrame()
+
     try:
+
         for i in range(len(possibilities)):
             
             #print(i)
@@ -135,12 +140,13 @@ if __name__ == '__main__':
             (first, _, _, _) = possibilities[i]
             (last_team) = last_schedule[0]
 
-            schedule_tables = []
 
             # the last team can't be the first on current month
             if last_team != first:
                 schedule_tables = get_schedule_tables(data, poss, days, employees, schedule, absences)
                 print(schedule_tables)
+
+                df = pandas.DataFrame([schedule_tables['total_Horas'], schedule_tables['ideal']])
 
                 hours_sum = 0
                 for hours in schedule_tables['total_Horas']:
@@ -151,7 +157,9 @@ if __name__ == '__main__':
                 
     except:
         print("There was an error generating the scale")
-                        
+
+    print(df)
+    # print(df.corr())
             
     print("fim")
 
