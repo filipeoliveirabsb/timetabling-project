@@ -133,9 +133,19 @@ if __name__ == '__main__':
             (first, _, _, _) = possibilities[i]
             (last_team) = last_schedule[0]
 
+            schedule_tables = []
+
             # the last team can't be the first on current month
             if last_team != first:
-                print(get_schedule_tables(data, poss, days, employees, schedule, absences))
+                schedule_tables = get_schedule_tables(data, poss, days, employees, schedule, absences)
+                print(schedule_tables)
+
+            # hours_sum = 0
+            # for hours in schedule_tables['total_Horas']:
+            #     hours_sum = hours_sum + hours
+            #
+            # average_hours = hours_sum / len(schedule_tables['total_Horas'])
+            # print(average_hours)
                 
     except:
         print("There was an error generating the scale")
