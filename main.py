@@ -158,8 +158,10 @@ if __name__ == '__main__':
     except:
         print("There was an error generating the scale")
 
+    df = df.transpose()
+    # df = df.drop(df.columns[0], axis=1, inplace=True)
     print(df)
-    # print(df.corr())
+    print(df.corr())
             
     print("fim")
 
