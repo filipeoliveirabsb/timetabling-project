@@ -81,6 +81,8 @@ def get_schedule_tables(data, poss, days, employees, schedule, absences):
 
     schedule_table['total_Horas'] = schedule_table.sum(axis = 1)
 
+    schedule_table['ideal'] = 168
+
     return schedule_table
 
 
