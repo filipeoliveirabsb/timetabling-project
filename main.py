@@ -1,5 +1,4 @@
 import numpy as np
-import pandas
 import pandas as pd
 from ruamel.yaml import YAML
 
@@ -25,7 +24,7 @@ from ruamel.yaml import YAML
 # 3) add up the hours of employees in the month 
 #    include in the column "total hours" in the 
 #    schedule_table
-# 4) use the genetic algorithm to find the best 
+# 4) use a heuristic algorithm to find the best 
 #    scale, with setTime to measure the execution 
 #    time
 
@@ -82,7 +81,7 @@ def get_schedule_tables(data, poss, days, employees, schedule, absences):
 
     schedule_table['total_Horas'] = schedule_table.sum(axis = 1)
 
-    schedule_table['ideal'] = 168
+    #schedule_table['ideal'] = 168
 
     return schedule_table
 
@@ -122,8 +121,9 @@ if __name__ == '__main__':
     except:
         print('There was an error reading the settings file')
 
-    schedule_tables = []
-    df = pandas.DataFrame()
+    schedule_table = []
+    schedules_generated = []
+    #df = pandas.DataFrame()
 
     try:
 
@@ -143,25 +143,33 @@ if __name__ == '__main__':
 
             # the last team can't be the first on current month
             if last_team != first:
-                schedule_tables = get_schedule_tables(data, poss, days, employees, schedule, absences)
-                print(schedule_tables)
+                schedule_table = get_schedule_tables(data, poss, days, employees, schedule, absences)
+                print(schedule_table)
 
-                df = pandas.DataFrame([schedule_tables['total_Horas'], schedule_tables['ideal']])
+                #instanciar evaluateSchedule(schedule_table)
 
-                hours_sum = 0
+                #df = pandas.DataFrame([schedule_tables['total_Horas'], schedule_tables['ideal']])
+
+                """ hours_sum = 0
                 for hours in schedule_tables['total_Horas']:
                     hours_sum = hours_sum + hours
 
                 average_hours = hours_sum / len(schedule_tables['total_Horas'])
-                print('Média de horas: ', average_hours)
+                print('Média de horas: ', average_hours) """
+
+                # carregar a lista de schedules geradas
+                schedules_generated.append(schedule_table)
+
+        #instanciar e chamar o solver para encontrar a melhor schedule
+        # solver.bestSchedule(schedules_generated)
                 
     except:
         print("There was an error generating the scale")
 
-    df = df.transpose()
+    #df = df.transpose()
     # df = df.drop(df.columns[0], axis=1, inplace=True)
-    print(df)
-    print(df.corr())
+    #print(df)
+    #print(df.corr())
             
-    print("fim")
+    #print("fim")
 
