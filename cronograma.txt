@@ -21,6 +21,6 @@ interface
 
 refactor
     criar as classes 
-        evaluateSchedule
-        solve
+        evaluateSchedule -- ok
+        solver -- ok
 comentários em inglês -- ok
