@@ -96,7 +96,7 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
                 # employee absences
                 (toa, hrs) = get_employee_absences(absences, team_employee, day)
                 
-                if (toa != 0):
+                if (toa == 'AJ'):
                     schedule_table.iloc[employee, day] = hrs
                 else:
                     schedule_table.iloc[employee, day] = 24
@@ -144,7 +144,7 @@ if __name__ == '__main__':
             # the last team can't be the first on current month
             if last_team != first:
                 schedule_table = get_schedule_tables(data, poss, days, employees, schedule, absences)
-                print(schedule_table)
+                #print(schedule_table)
 
                 #instanciar evaluateSchedule(schedule_table)
 
@@ -159,6 +159,11 @@ if __name__ == '__main__':
 
                 # carregar a lista de schedules geradas
                 schedules_generated.append(schedule_table)
+        
+        for s in schedules_generated:
+            print(s)
+
+        print('foram geradas', len(schedules_generated), 'possibilidades')
 
         #instanciar e chamar o solver para encontrar a melhor schedule
         # solver.bestSchedule(schedules_generated)

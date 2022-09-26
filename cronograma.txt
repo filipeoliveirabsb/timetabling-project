@@ -5,6 +5,9 @@ resolver ausências na escala -- ok
     considerar os diferentes meses do ano (28, 30, 31)
     array x número dos dias
 somar horas trabalhadas por employee no dataframe -- ok
+as folgas legais devem ser computadas como trabalho -- ok
+
+na geração da escala final, mostrar as ausências -- 
 
 algoritmo genetico -> não deu certo
     lib mlrose ?

@@ -1,8 +1,5 @@
 class evaluateSchedule:
 
-    def __init__(self, schedule):
-        self.schedule = schedule
-
     def calculateIdeal(schedule):
         print("Calculating Ideal Schedule")
         listIdeal = []
@@ -11,7 +8,7 @@ class evaluateSchedule:
         # para respeitar a regra do ideal de 40h semanais
 
         # incluir a coluna ideal na lista
-        schedule['ideal'] = listIdeal
+        schedule['ideal'] = listIdeal               
 
     def calculateAdjusts(schedule):
         print("Calculating Adjusts")
@@ -27,6 +24,14 @@ class evaluateSchedule:
         # percorrer a schedule e calcular a media semanal
         # de cada empregado
         schedule['week_hours'] = listWeekHours
+
+def __init__(self, schedule):
+    self.schedule = schedule
+    self.calculateIdeal(schedule)
+    self.calculateAdjusts(schedule)
+    self.calculateWeekHours(schedule)
+
+    return schedule
 
 
 
