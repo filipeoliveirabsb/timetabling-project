@@ -156,7 +156,14 @@ if __name__ == '__main__':
 
                 average_hours = hours_sum / len(schedule_tables['total_Horas'])
                 print('Média de horas: ', average_hours) """
-
+                print('inicio teste impressao lista')
+                for i in range(len(schedule_table)):
+                    print('passed')
+                    for j in range(len(schedule_table.columns)):
+                        print(i, j)
+                        print(schedule_table.iloc[i, j])
+                
+                print('fim teste impressao lista')
                 # carregar a lista de schedules geradas
                 schedules_generated.append(schedule_table)
         

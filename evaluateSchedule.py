@@ -6,6 +6,8 @@ class evaluateSchedule:
         # percorrer a schedule e calcular quantas semanas o 
         # time trabalhou, o ideal será esse numero * 40
         # para respeitar a regra do ideal de 40h semanais
+        for i in range(len(schedule)):
+            print(schedule[i])
 
         # incluir a coluna ideal na lista
         schedule['ideal'] = listIdeal               
