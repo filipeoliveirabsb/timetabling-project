@@ -7,7 +7,7 @@ from ruamel.yaml import YAML
 # optimal number of hours in month / employee=160h
 # max hours in month / employee = 168h
 # min employees / day in module = 2
-# max employees / day in module = 4 (team lenght) 
+# max employees / day in module = 4 (team lenght)
 
 # The algorithm:
 # 1) generate the scales with the heuristic algo-
@@ -16,17 +16,18 @@ from ruamel.yaml import YAML
 #       scale1 => d1=t1, d2=t2, d3=t3, d4=t4
 #       scale2 => d1=t2, d2=t4, d3=t3, d4=t1
 #       ...
-# 2) when generating the scale, the system must: 
-#    2.1) consider the absences of each team and  
+# 2) when generating the scale, the system must:
+#    2.1) consider the absences of each team and
 #       that there is one team 4 employees/ day
-#    2.2) consider hours of workload adjustments 
+#    2.2) consider hours of workload adjustments
 #
-# 3) add up the hours of employees in the month 
-#    include in the column "total hours" in the 
+# 3) add up the hours of employees in the month
+#    include in the column "total hours" in the
 #    schedule_table
-# 4) use a heuristic algorithm to find the best 
-#    scale, with setTime to measure the execution 
+# 4) use a heuristic algorithm to find the best
+#    scale, with setTime to measure the execution
 #    time
+
 
 def get_employee_absences(absences, team_employee, day):
 
@@ -37,65 +38,70 @@ def get_employee_absences(absences, team_employee, day):
         toa = toa['type']
         doa = doa['days']
         hrs = hrs['hours']
-        
+
         if emp == team_employee:
             if day in doa:
                 return (toa, hrs)
-        
+
     return (0, 0)
-        
+
 
 # generate schedule_table scale with heuristic algorithm
 def get_schedule_tables(data, poss, days, employees, schedule, absences):
-    schedule_table = pd.DataFrame(index=data["employees"], columns=data["days"])
+    schedule_table = pd.DataFrame(
+        index=data["employees"], columns=data["days"])
 
     (first, second, third, fourth) = poss
-        
+
     for k in range(len(schedule)):
-    
+
         (team, team_employee, _) = schedule[k]
 
         if team == first:
 
             (scale_days) = data["scale_days"][0]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)
+            create_scheduling(schedule_table, days, employees,
+                              team_employee, scale_days, absences)
 
         if team == second:
 
             (scale_days) = data["scale_days"][1]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)
+            create_scheduling(schedule_table, days, employees,
+                              team_employee, scale_days, absences)
 
         if team == third:
 
             (scale_days) = data["scale_days"][2]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences)                       
-                    
+            create_scheduling(schedule_table, days, employees,
+                              team_employee, scale_days, absences)
+
         if team == fourth:
 
             (scale_days) = data["scale_days"][3]
 
-            create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences) 
+            create_scheduling(schedule_table, days, employees,
+                              team_employee, scale_days, absences)
 
-    schedule_table['total_Horas'] = schedule_table.sum(axis = 1)
+    schedule_table['total_Horas'] = schedule_table.sum(axis=1)
 
     #schedule_table['ideal'] = 168
 
     return schedule_table
 
 
-
 def create_scheduling(schedule_table, days, employees, team_employee, scale_days, absences):
     for day in range(len(days)):
         for employee in range(len(employees)):
-                   
+
             if (employees[employee] == team_employee and day in scale_days):
-                
+
                 # employee absences
-                (toa, hrs) = get_employee_absences(absences, team_employee, day)
-                
+                (toa, hrs) = get_employee_absences(
+                    absences, team_employee, day)
+
                 if (toa == 'AJ'):
                     schedule_table.iloc[employee, day] = hrs
                 else:
@@ -128,25 +134,25 @@ if __name__ == '__main__':
     try:
 
         for i in range(len(possibilities)):
-            
-            #print(i)
+
+            # print(i)
             #print("------- Possibility -------")
-            
+
             poss = possibilities[i]
 
-            #print(pos)
-            #print("---------------------------")
+            # print(pos)
+            # print("---------------------------")
 
-            (first, _, _, _) = possibilities[i]
+            (first, second, third, _) = possibilities[i]
             (last_team) = last_schedule[0]
 
+            # the last team selected must rest 72 hours
+            if last_team not in (first, second, third):
+                schedule_table = get_schedule_tables(
+                    data, poss, days, employees, schedule, absences)
+                # print(schedule_table)
 
-            # the last team can't be the first on current month
-            if last_team != first:
-                schedule_table = get_schedule_tables(data, poss, days, employees, schedule, absences)
-                #print(schedule_table)
-
-                #instanciar evaluateSchedule(schedule_table)
+                # instanciar evaluateSchedule(schedule_table)
 
                 #df = pandas.DataFrame([schedule_tables['total_Horas'], schedule_tables['ideal']])
 
@@ -161,26 +167,25 @@ if __name__ == '__main__':
                     for j in range(len(schedule_table.columns)):
                         print(i, j)
                         print(schedule_table.iloc[i, j])
-                
+
                 print('fim teste impressao lista')
                 # carregar a lista de schedules geradas
                 schedules_generated.append(schedule_table)
-        
+
         for s in schedules_generated:
             print(s)
 
         print('foram geradas', len(schedules_generated), 'possibilidades')
 
-        #instanciar e chamar o solver para encontrar a melhor schedule
+        # instanciar e chamar o solver para encontrar a melhor schedule
         # solver.bestSchedule(schedules_generated)
-                
+
     except:
         print("There was an error generating the scale")
 
     #df = df.transpose()
     # df = df.drop(df.columns[0], axis=1, inplace=True)
-    #print(df)
-    #print(df.corr())
-            
-    #print("fim")
+    # print(df)
+    # print(df.corr())
 
+    # print("fim")
