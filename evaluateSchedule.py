@@ -1,38 +1,43 @@
 class evaluateSchedule:
 
-    def calculateIdeal(schedule):
-        print("Calculating Ideal Schedule")
-        listIdeal = []
-        # percorrer a schedule e calcular quantas semanas o 
-        # time trabalhou, o ideal será esse numero * 40
-        # para respeitar a regra do ideal de 40h semanais
-        for i in range(len(schedule)):
-            print(schedule[i])
+    def calculateWeeklyAverage(schedule):
+        print("Calculating Weekly Average")
+        listAverage = []
+        # percorrer a schedule e calcular a media semanal
+        # de cada agente
+        # calcular total horas / total semanas
+        # calcular total horas a mais ou a menos / semana 
+        # considerando 40h como ideal
+        for i in range(len(schedule['total_Horas'])):
+            total = schedule['total_Horas'][i]
+            weekly_average = int(total / 4)
+            listAverage.append(weekly_average)
 
-        # incluir a coluna ideal na lista
-        schedule['ideal'] = listIdeal               
+        # incluir a coluna media semanal na schedule
+        schedule['weekly_average'] = listAverage               
 
     def calculateAdjusts(schedule):
         print("Calculating Adjusts")
         listAdjusts = []
         # percorrer a schedule e calcular as horas
-        # faltantes ou a mais baseado no total de horas
-        # e a coluca ideal
-        schedule['adjusts'] = listAdjusts
+        # faltantes ou a mais baseado na media semanal
+        # a media ideal (40h) vezes o numero de semanas
+        for i in range(len(schedule['weekly_average'])):
+            hours_to_adjust = 0
+            employee_average = schedule['weekly_average'][i]
+                        
+            hours_to_adjust = int(employee_average - 40) * 4
+            listAdjusts.append(hours_to_adjust)
 
-    def calculateWeekHours(schedule):
-        print("Calculating Week Hours")
-        listWeekHours = []
-        # percorrer a schedule e calcular a media semanal
-        # de cada empregado
-        schedule['week_hours'] = listWeekHours
+        # incluir a coluna ajustes na schedule
+        schedule['adjusts'] = listAdjusts
+    
 
 def __init__(self, schedule):
     self.schedule = schedule
-    self.calculateIdeal(schedule)
+    self.calculateWeeklyAverage(schedule)
     self.calculateAdjusts(schedule)
-    self.calculateWeekHours(schedule)
-
+    
     return schedule
 
 

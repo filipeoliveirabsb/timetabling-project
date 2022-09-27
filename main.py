@@ -158,7 +158,6 @@ if __name__ == '__main__':
                 print('Média de horas: ', average_hours) """
                 print('inicio teste impressao lista')
                 for i in range(len(schedule_table)):
-                    print('passed')
                     for j in range(len(schedule_table.columns)):
                         print(i, j)
                         print(schedule_table.iloc[i, j])

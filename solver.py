@@ -9,6 +9,6 @@ class solver:
         
         # percorrer as schedules geradas e compara-las considerando
         # os ajustes para o mes seguinte e a média semanal de cada 
-        # empregado
+        # empregado (se >= 40)
         
         return bestSchedule
