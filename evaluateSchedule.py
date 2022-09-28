@@ -6,6 +6,9 @@ class EvaluateSchedule:
         # percorrer a schedule e calcular a media semanal
         # de cada agente
         # calcular total horas / total semanas
+        # calcular quantas semanas / mês. Ex 30/7 = 4,3 semanas
+
+        # quantas horas ele trabalhou a cada 7 dias?
         for i in range(len(schedule['total_Horas'])):
             total = schedule['total_Horas'][i]
             weekly_average = int(total / 4)
@@ -30,10 +33,30 @@ class EvaluateSchedule:
         # inclui a coluna ajustes na schedule
         schedule['adjusts'] = listAdjusts
 
+    def adjustSchedule(schedule, days, employees):
+        print("Adjusting schedule")
+        listAdjusts = []
+        # percorrer a schedule e ajustar cada agente
+        # distribuindo as horas sobrantes pelos dias 
+        # respeitando as regras 24 no max e min 2 de
+        # agentes com 24 no dia
+        for day in range(len(days)):
+            for employee in range(len(employees)):
+                adjusts = schedule.iloc[employee, day]['adjusts']
 
-def __init__(self, schedule):
+                # distribuir as horas considerando dias de folga e alguma regra de utilização de horas (ex. de 8 em 8)
+                # while adjusts > 0:
+                schedule.iloc[employee, day] = 8
+                adjusts -= 8
+
+        
+        
+def __init__(self, schedule, days, employees):
     self.schedule = schedule
+    self.days = days
+    self.employees = employees
     self.calculateWeeklyAverage(schedule)
     self.calculateAdjusts(schedule)
+    self.adjustSchedule(schedule, days, employees)
 
     return schedule

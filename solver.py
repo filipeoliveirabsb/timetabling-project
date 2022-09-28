@@ -4,10 +4,14 @@ class Solver:
         print("Calculating best schedule")
 
         # percorrer as schedules geradas e compara-las considerando
-        # os ajustes para o mes seguinte e a média semanal de cada
-        # empregado (se >= 40)
+        # o min de ajustes para o mes seguinte e a média semanal de 
+        # cada empregado (se ~= 40)
 
-        # qual das escalas tem média semanal >= 40h por agente com a menor qtd de horas de ajuste?
+        # qual das escalas tem média semanal >= 40h por agente com a menor qtd de horas de ajuste? media semanal (melhor para o empregado)
+
+        # qual das escalas possui o maior numero de horas após o ajuste? (melhor para instituição)
+        # considerar agora as folgas como não trabalhadas
+        # recalcular a coluna total de horas
         for i in range(len(schedules)):
 
             total_adjusts = schedules[i].sum(collumn='adjusts')

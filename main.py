@@ -100,7 +100,7 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
                 # employee absences
                 (toa, hrs) = get_employee_absences(
                     absences, team_employee, day)
-
+                # nesse ponto consideramos as folgas legais como horas trabalhadas
                 if (toa == 'AJ'):
                     schedule_table.iloc[employee, day] = hrs
                 else:
@@ -151,7 +151,7 @@ if __name__ == '__main__':
                 # print(schedule_table)
 
                 # instanciar evaluateSchedule(schedule_table)
-                schedule_evaluated = EvaluateSchedule(schedule_table)
+                #schedule_evaluated = EvaluateSchedule(schedule_table, days, employees)
 
                 print('inicio teste impressao lista')
 
@@ -161,10 +161,10 @@ if __name__ == '__main__':
         for s in schedules_generated:
             print(s)
 
-        print('foram geradas', len(schedules_generated), 'possibilidades')
+        print('foram geradas', len(schedules_generated), 'possibilidades de ordem de escala')
 
         # instanciar e chamar o solver para encontrar a melhor schedule
-        bestSchedule = Solver(schedules_generated)
+        # bestSchedule = Solver(schedules_generated)
 
     except:
         print("There was an error generating the scale")
