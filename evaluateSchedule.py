@@ -1,4 +1,4 @@
-class evaluateSchedule:
+class EvaluateSchedule:
 
     def calculateWeeklyAverage(schedule):
         print("Calculating Weekly Average")
@@ -6,15 +6,13 @@ class evaluateSchedule:
         # percorrer a schedule e calcular a media semanal
         # de cada agente
         # calcular total horas / total semanas
-        # calcular total horas a mais ou a menos / semana 
-        # considerando 40h como ideal
         for i in range(len(schedule['total_Horas'])):
             total = schedule['total_Horas'][i]
             weekly_average = int(total / 4)
             listAverage.append(weekly_average)
 
-        # incluir a coluna media semanal na schedule
-        schedule['weekly_average'] = listAverage               
+        # inclui a coluna media semanal na schedule
+        schedule['weekly_average'] = listAverage
 
     def calculateAdjusts(schedule):
         print("Calculating Adjusts")
@@ -25,21 +23,17 @@ class evaluateSchedule:
         for i in range(len(schedule['weekly_average'])):
             hours_to_adjust = 0
             employee_average = schedule['weekly_average'][i]
-                        
+
             hours_to_adjust = int(employee_average - 40) * 4
             listAdjusts.append(hours_to_adjust)
 
-        # incluir a coluna ajustes na schedule
+        # inclui a coluna ajustes na schedule
         schedule['adjusts'] = listAdjusts
-    
+
 
 def __init__(self, schedule):
     self.schedule = schedule
     self.calculateWeeklyAverage(schedule)
     self.calculateAdjusts(schedule)
-    
+
     return schedule
-
-
-
-
