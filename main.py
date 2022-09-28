@@ -49,8 +49,9 @@ def get_employee_absences(absences, team_employee, day):
 
 # generate schedule_table scale with heuristic algorithm
 def get_schedule_tables(data, poss, days, employees, schedule, absences):
+        
     schedule_table = pd.DataFrame(
-        index=data["employees"], columns=data["days"])
+        index=data["employees"], columns=days)
 
     (first, second, third, fourth) = poss
 
@@ -119,6 +120,7 @@ if __name__ == '__main__':
         possibilities = data["order_possibilities"]
         last_schedule = data["last_schedule"]
         days = data["days"]
+        months = data["months"]
         employees = data["employees"]
         schedule = data["team_schedule"]
 
@@ -128,6 +130,12 @@ if __name__ == '__main__':
 
     schedule_table = []
     schedules_generated = []
+    data_days = []
+    # ex. jan = 0, feb = 1, ...
+    (_, days_t) = months[0]
+    
+    for d in range(1, days_t +1):
+        data_days.append(d)
 
     try:
 
@@ -143,20 +151,18 @@ if __name__ == '__main__':
 
             (first, second, third, _) = possibilities[i]
             (last_team) = last_schedule[0]
-
+            
             # the last team selected must rest 72 hours
             if last_team not in (first, second, third):
                 schedule_table = get_schedule_tables(
-                    data, poss, days, employees, schedule, absences)
+                    data, poss, data_days, employees, schedule, absences)
                 # print(schedule_table)
 
                 # instanciar evaluateSchedule(schedule_table)
-                #schedule_evaluated = EvaluateSchedule(schedule_table, days, employees)
-
-                print('inicio teste impressao lista')
-
+                schedule_evaluated = EvaluateSchedule.calculateWeeklyAverage(schedule_table, data_days)
+                
                 # carregar a lista de schedules geradas
-                schedules_generated.append(schedule_table)
+                schedules_generated.append(schedule_evaluated)
 
         for s in schedules_generated:
             print(s)
