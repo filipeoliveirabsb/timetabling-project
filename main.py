@@ -165,8 +165,9 @@ if __name__ == '__main__':
                 schedule_adjusts = EvaluateSchedule.calculateAdjusts(
                     schedule_evaluated, data_days)
 
-                # chamar compensatoryTime para ajsutar o banco de horas
-                schedule_final = EvaluateSchedule.compensatoryTime(schedule_adjusts, employees, data)
+                # chamar compensatoryTime para calcular o banco de horas
+                schedule_final = EvaluateSchedule.compensatoryTime(
+                    schedule_adjusts, employees, data)
 
                 # carregar a lista de schedules geradas
                 schedules_generated.append(schedule_final)
@@ -177,8 +178,8 @@ if __name__ == '__main__':
         print('foram geradas', len(schedules_generated),
               'possibilidades de ordem de escala')
 
-        # instanciar e chamar o solver para encontrar a melhor schedule
-        # bestSchedule = Solver(schedules_generated)
+        # instanciar e chamar o solver para encontrar a(s) melhor(es) schedule(s)
+        Solver.get_best_schedule(schedules_generated)
 
     except:
         print("There was an error generating the scale")
