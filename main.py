@@ -87,7 +87,7 @@ def get_schedule_tables(data, poss, days, employees, schedule, absences):
             create_scheduling(schedule_table, days, employees,
                               team_employee, scale_days, absences)
 
-    schedule_table['total_hours'] = schedule_table.sum(axis=1)
+    schedule_table['total'] = schedule_table.sum(axis=1)
 
     return schedule_table
 
@@ -119,7 +119,6 @@ if __name__ == '__main__':
         # copy the data
         possibilities = data["order_possibilities"]
         last_schedule = data["last_schedule"]
-        days = data["days"]
         months = data["months"]
         employees = data["employees"]
         schedule = data["team_schedule"]
@@ -132,7 +131,7 @@ if __name__ == '__main__':
     schedules_generated = []
     data_days = []
     # ex. jan = 0, feb = 1, ...
-    (_, days_t) = months[0]
+    (_, days_t) = months[1]
 
     for d in range(1, days_t + 1):
         data_days.append(d)
@@ -166,13 +165,11 @@ if __name__ == '__main__':
                 schedule_adjusts = EvaluateSchedule.calculateAdjusts(
                     schedule_evaluated, data_days)
 
-                # chamar calculateAdjusts para distribuir as horas extras como AJ
-                # atende a regra de menor qtd de ajustes para o mes seguinte
-                # schedule_adjusted = EvaluateSchedule.adjustSchedule(
-                #   schedule_adjusts, data_days)
+                # chamar compensatoryTime para ajsutar o banco de horas
+                schedule_final = EvaluateSchedule.compensatoryTime(schedule_adjusts, employees, data)
 
                 # carregar a lista de schedules geradas
-                schedules_generated.append(schedule_adjusts)
+                schedules_generated.append(schedule_final)
 
         for s in schedules_generated:
             print(s)

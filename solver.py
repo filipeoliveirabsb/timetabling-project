@@ -12,13 +12,16 @@ class Solver:
         # qual das escalas possui o maior numero de horas após o ajuste? (melhor para instituição)
         # considerar agora as folgas como não trabalhadas
         # recalcular a coluna total de horas
+        # considerar o banco de horas com utilização de 24h, quando houver
         for i in range(len(schedules)):
 
             total_adjusts = schedules[i].sum(collumn='adjusts')
             weekly_general_average = schedules[i].sum(collumn='weekly_average')
 
-            # if weekly_general_average ... and total_adjusts ...
-            # ...save i
+            # quem tiver a menor qtd de horas de adjusts em módulo e a média semanal mais prox de 40h é melhor escala.
+            # o desempate deve considerar:
+            # 1) maior número de total_hours
+            # 2) menor saldo de banco de horas
 
             bestSchedule = schedules[i]
 
