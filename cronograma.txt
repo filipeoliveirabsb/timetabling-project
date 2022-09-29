@@ -33,4 +33,5 @@ refactor
     criar as classes 
         evaluateSchedule -- ok
         solver -- ok
-comentários em inglês -- ok
+    comentários em inglês -- ok
+    otimizar o código evitando redundancias

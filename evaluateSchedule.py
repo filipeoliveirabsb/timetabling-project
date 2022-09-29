@@ -109,3 +109,43 @@ class EvaluateSchedule:
 
         except:
             print('There was an error on compensatory time adjust')
+
+
+    def allocateCompTime(schedule, employees, data):
+        print("compensatory time adjust")
+        # percorrer a schedule e utilizar o banco de horas
+        # com utilização de 24h, quando houver e mínimo de 
+        # 2 agentes por turno
+        # preencher com 0 e debitar do over
+
+        try:
+            over_list = []
+            comp_time = data["comp_time"]
+            #print(comp_time)
+            #print(adjust_list)
+            
+            for employee in range(len(employees)):
+                over = 0
+                adjust = schedule['adj'][employee]
+                
+                for i in range(len(comp_time)):
+                    (emp, hrs) = comp_time[i]
+                    emp = emp['employee']
+                    hrs = hrs['hours']
+                    """ print('-------------- comp_time e employees ---------------')
+                    print(emp, hrs)
+                    print(employees[employee])
+                    print(employees[employee] == emp)
+                    print(adjust) """
+                    if employees[employee] == emp and adjust != 0: 
+                        over = hrs + adjust
+                        #print(over)
+                
+                over_list.append(over)
+                    
+            schedule['over'] = over_list
+
+            return schedule
+
+        except:
+            print('There was an error on compensatory time adjust')

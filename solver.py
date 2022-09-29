@@ -15,8 +15,8 @@ class Solver:
         # considerar o banco de horas com utilização de 24h, quando houver
         for i in range(len(schedules)):
 
-            total_adjusts = schedules[i].sum(collumn='adjusts')
-            weekly_general_average = schedules[i].sum(collumn='weekly_average')
+            total_adjusts = schedules[i].sum(collumn='adj')
+            weekly_general_average = schedules[i].sum(collumn='wa')
 
             # quem tiver a menor qtd de horas de adjusts em módulo e a média semanal mais prox de 40h é melhor escala.
             # o desempate deve considerar:
