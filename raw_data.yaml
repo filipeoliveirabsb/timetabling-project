@@ -108,7 +108,7 @@ month:
       - [employee: s1, type: AJ, days: [14, 15, 16, 17], hours: 8]
       - [employee: s2, type: LI, days: [0, 1, 2, 3, 4], hours: 0]
       - [employee: s85, type: DO, days: [15, 16, 20, 27, 30], hours: 0]
-      - [employee: s59, type: LI, days: [9, 10, 11, 12, 13], hours: 0]
+      - [employee: s59, type: AJ, days: [9, 10, 11, 12, 13], hours: 16]
 
 
 order_possibilities:

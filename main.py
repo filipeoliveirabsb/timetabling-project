@@ -49,7 +49,7 @@ def get_employee_absences(absences, team_employee, day):
 
 # generate schedule_table scale with heuristic algorithm
 def get_schedule_tables(data, poss, days, employees, schedule, absences):
-        
+
     schedule_table = pd.DataFrame(
         index=data["employees"], columns=days)
 
@@ -87,7 +87,7 @@ def get_schedule_tables(data, poss, days, employees, schedule, absences):
             create_scheduling(schedule_table, days, employees,
                               team_employee, scale_days, absences)
 
-    schedule_table['total_Horas'] = schedule_table.sum(axis=1)
+    schedule_table['total_hours'] = schedule_table.sum(axis=1)
 
     return schedule_table
 
@@ -133,8 +133,8 @@ if __name__ == '__main__':
     data_days = []
     # ex. jan = 0, feb = 1, ...
     (_, days_t) = months[0]
-    
-    for d in range(1, days_t +1):
+
+    for d in range(1, days_t + 1):
         data_days.append(d)
 
     try:
@@ -151,23 +151,34 @@ if __name__ == '__main__':
 
             (first, second, third, _) = possibilities[i]
             (last_team) = last_schedule[0]
-            
+
             # the last team selected must rest 72 hours
             if last_team not in (first, second, third):
                 schedule_table = get_schedule_tables(
                     data, poss, data_days, employees, schedule, absences)
                 # print(schedule_table)
 
-                # instanciar evaluateSchedule(schedule_table)
-                schedule_evaluated = EvaluateSchedule.calculateWeeklyAverage(schedule_table, data_days)
-                
+                # chamar evaluateSchedule para calcular a media semanal
+                schedule_evaluated = EvaluateSchedule.calculateWeeklyAverage(
+                    schedule_table, data_days)
+
+                # chamar calculateAdjusts para calcular as horas faltantes ou a mais
+                schedule_adjusts = EvaluateSchedule.calculateAdjusts(
+                    schedule_evaluated, data_days)
+
+                # chamar calculateAdjusts para distribuir as horas extras como AJ
+                # atende a regra de menor qtd de ajustes para o mes seguinte
+                # schedule_adjusted = EvaluateSchedule.adjustSchedule(
+                #   schedule_adjusts, data_days)
+
                 # carregar a lista de schedules geradas
-                schedules_generated.append(schedule_evaluated)
+                schedules_generated.append(schedule_adjusts)
 
         for s in schedules_generated:
             print(s)
 
-        print('foram geradas', len(schedules_generated), 'possibilidades de ordem de escala')
+        print('foram geradas', len(schedules_generated),
+              'possibilidades de ordem de escala')
 
         # instanciar e chamar o solver para encontrar a melhor schedule
         # bestSchedule = Solver(schedules_generated)
