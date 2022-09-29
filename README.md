@@ -2,7 +2,7 @@
 
 This is an approximate algorithm, developed during the production of an article as part of the evaluation of the discipline Algorithms and Data Structures - PPCA/UnB.
 
-The problem of the work schedule of socio-educational agents in the Hospitalization Unit in Brazil is reported, in order to adapt and optimize the weekly workload of 40 hours, with lower adjustments.
+The problem of the work schedule of socio-educational agents in an adolescent internment unit in the Federal District, Brazil, is reported, in order to adapt and optimize the weekly workload of 40 hours, with lower adjustments.
 
 ### Rules
 - Socio-educational agents work on a 24h x 72h scale (24 hours of work x 72 hours of rest);
