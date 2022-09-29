@@ -10,8 +10,8 @@ as folgas legais devem ser computadas como trabalho -- ok
 calculo de media semanal -- ok
 calculo de horas de ajuste -- ok
 
-banco de horas / compensatory time off -- 
-não considerar fração de horas (round) -- 
+banco de horas / compensatory time off -- ok
+não considerar fração de horas (round) -- ok
 
 na geração da escala final, mostrar as ausências -- 
 
@@ -20,9 +20,9 @@ algoritmo genetico -> não deu certo
     lib mlrose ?
     https://github.com/handcraftsman/GeneticAlgorithmsWithPython
 
-programação linear -> em teste
+programação linear -> não deu certo (mas cabe mais testes)
 
-calcular o tempo de execução (performance)
+calcular o tempo de execução (performance) -- 
 
 tratamento de erros -- ok
 
@@ -33,5 +33,5 @@ refactor
     criar as classes 
         evaluateSchedule -- ok
         solver -- ok
-    comentários em inglês -- ok
+    comentários em inglês -- 
     otimizar o código evitando redundancias
