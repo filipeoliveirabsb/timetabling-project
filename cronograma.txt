@@ -12,8 +12,21 @@ calculo de horas de ajuste -- ok
 
 banco de horas / compensatory time off -- ok
 não considerar fração de horas (round) -- ok
+tratamento de erros -- ok
 
 na geração da escala final, mostrar as ausências -- 
+calcular o tempo de execução (performance) -- ok
+
+refactor
+    criar as classes 
+        evaluateSchedule -- ok
+        solver -- ok
+    comentários em inglês -- ok
+    otimizar o código evitando redundancias
+
+
+
+
 
 
 algoritmo genetico -> não deu certo
@@ -22,16 +35,6 @@ algoritmo genetico -> não deu certo
 
 programação linear -> não deu certo (mas cabe mais testes)
 
-calcular o tempo de execução (performance) -- 
-
-tratamento de erros -- ok
-
 api -> https://github.com/python-curso/rest-api
 interface
 
-refactor
-    criar as classes 
-        evaluateSchedule -- ok
-        solver -- ok
-    comentários em inglês -- 
-    otimizar o código evitando redundancias

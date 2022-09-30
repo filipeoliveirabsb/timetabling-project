@@ -3,9 +3,9 @@ class Solver:
     def get_best_schedule(schedules):
         #print("calculating best schedule")
 
-        # percorrer as schedules geradas e compara-las considerando nessa ordem:
+        # go through the scales and compare them, considering:
         try:
-            # 1) média geral mais proxima de 40h/semana
+            # 1) general average closer to 40h/week
             save_best_wa = 0
             best_list = []
 
@@ -15,10 +15,10 @@ class Solver:
 
                 weekly_general_average = (schedule_table['wa'].sum()) / 16
 
-                # valor absoluto - distancia para o ideal 40
+                # absolute value - distance to ideal value (40)
                 mod = abs(weekly_general_average - 40)
 
-                """ print('------ procurando melhor media semanal ------')
+                """ print('------ looking for best weekly average ------')
                 print(i)
                 print(weekly_general_average)
                 print(save_best_wa)
@@ -42,7 +42,7 @@ class Solver:
 
             # print(best_list)
 
-            # 2) se empate, qual tem menor numero absoluto (módulo) de ajustes em hrs
+            # 2) if a tie, which one has the lowest absolute number (module) of adjustments in hrs
             save_best_adj = 0
             list_best_adj = []
             if len(best_list) > 1:
@@ -51,7 +51,7 @@ class Solver:
                     schedule_table = schedules[bs]
 
                     total_adjusts = schedule_table['adj'].abs().sum()
-                    """ print('------ procurando menor ajuste ------')
+                    """ print('------ looking for lower fit ------')
                     print(i)
                     print(total_adjusts)
                     print(save_best_adj)
@@ -76,7 +76,7 @@ class Solver:
 
             # print(best_list)
 
-            # 3) se empate, qual tem maior numero de horas (interesse da instituição)
+            # 3) if a tie, which one has the highest number of hours (interest of the institution)
             save_best_total = 0
             list_best_total = []
             if len(best_list) > 1:
@@ -85,7 +85,7 @@ class Solver:
                     schedule_table = schedules[bs]
 
                     total_hours = schedule_table['total'].sum()
-                    """ print('------ procurando maior total -------')
+                    """ print('------ looking for highest total -------')
                     print(i)
                     print(total_hours)
                     print(save_best_total)
@@ -110,7 +110,7 @@ class Solver:
 
             # print(best_list)
 
-            # 4) se empate, qual gera o menor saldo de banco de horas
+            # 4) if a tie, which one generates the smallest bank of hours balance
             save_best_over = 0
             list_best_over = []
             if len(best_list) > 1:
@@ -119,7 +119,7 @@ class Solver:
                     schedule_table = schedules[bs]
 
                     total_over = schedule_table['over'].sum()
-                    """ print('------ procurando menor banco horas -------')
+                    """ print('------ looking for lower balance -------')
                     print(i)
                     print(total_over)
                     print(save_best_over)
@@ -144,7 +144,7 @@ class Solver:
 
             print(best_list)
 
-            # permanecendo o empate, todas as listas remanecentes devem ser retornadas
+            # if the tie persists, all remaining schedules must be returned
             # return the best shcedule(s)
             print('final')
             schedules_final = []
@@ -162,14 +162,10 @@ class Solver:
         except:
             print('There was an error on get best schedule')
 
-    # implementar utilização do banco de horas na v2.
+    # implement time bank usage in v2.
     def generateWithCompTime(schedules, bestSchedule):
         #print("Calculating best schedule")
-
-        # percorrer a(s) melhore(s) schedule(s) geradas e preencher
-        # com as ausências em formato mais legível
-        # considerar o banco de horas com utilização de 24h, quando houver
-        # e o mínimo de 2 agentes por turno
-        # recalcular o "over"
+        # consider the hours bank with 24-hour use, when there is
+        # and the minimum of 2 employees per shift
         for i in range(len(bestSchedule)):
             print('em desenvolvimento')

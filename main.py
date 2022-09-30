@@ -1,12 +1,13 @@
 from evaluateSchedule import EvaluateSchedule
 from solver import Solver
 import pandas as pd
+import time
 from ruamel.yaml import YAML
 
 # *------------------ RULES ---------------------*
 # the intervals between schedules are 3 days long
 # optimal number of hours in month / employee=160h
-# max hours in month / employee = 168h
+# max hours in month / employee = 40h / week
 # min employees / day in module = 2
 # max employees / day in module = 4 (team lenght)
 
@@ -101,7 +102,8 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
                 # employee absences
                 (toa, hrs) = get_employee_absences(
                     absences, team_employee, day)
-                # nesse ponto consideramos as folgas legais como horas trabalhadas
+                
+                # at this point we consider legal days off as hours worked
                 if (toa == 'AJ'):
                     schedule_table.iloc[employee, day] = hrs
                 else:
@@ -109,7 +111,7 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
 
 
 if __name__ == '__main__':
-
+    start_time = time.time()
     try:
         data_file = "./raw_data.yaml"
         raw_data_file = open(data_file)
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     schedule_table = []
     schedules_generated = []
     data_days = []
-    # ex. jan = 0, feb = 1, ...
+    # e.g: jan = 0, feb = 1, ...
     (_, days_t) = months[1]
 
     for d in range(1, days_t + 1):
@@ -140,7 +142,6 @@ if __name__ == '__main__':
 
         for i in range(len(possibilities)):
 
-            # print(i)
             #print("------- Possibility -------")
 
             poss = possibilities[i]
@@ -157,19 +158,18 @@ if __name__ == '__main__':
                     data, poss, data_days, employees, schedule, absences)
                 # print(schedule_table)
 
-                # chamar evaluateSchedule para calcular a media semanal
+                # call evaluateSchedule to calculate the weekly average
                 schedule_evaluated = EvaluateSchedule.calculateWeeklyAverage(
                     schedule_table, data_days)
 
-                # chamar calculateAdjusts para calcular as horas faltantes ou a mais
+                # call calculateAdjusts to calculate missing or extra hours
                 schedule_adjusts = EvaluateSchedule.calculateAdjusts(
                     schedule_evaluated, data_days)
 
-                # chamar compensatoryTime para calcular o banco de horas
+                # call compensatoryTime to calculate the bank of hours
                 schedule_final = EvaluateSchedule.compensatoryTime(
                     schedule_adjusts, employees, data)
 
-                # carregar a lista de schedules geradas
                 schedules_generated.append(schedule_final)
 
         for s in schedules_generated:
@@ -178,10 +178,13 @@ if __name__ == '__main__':
         print('foram geradas', len(schedules_generated),
               'possibilidades de ordem de escala')
 
-        # instanciar e chamar o solver para encontrar a(s) melhor(es) schedule(s)
+        # instantiate and call the solver to find the best scale(s)
         Solver.get_best_schedule(schedules_generated)
+
+        # calculate the runtime of the program
+        print('runtime:', round((time.time() - start_time), 5), ' seconds')
 
     except:
         print("There was an error generating the scale")
 
-    # print("fim")
+    # print("end")

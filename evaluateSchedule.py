@@ -2,23 +2,18 @@ class EvaluateSchedule:
 
     def calculateWeeklyAverage(schedule, days):
         #print("calculating weekly average")
-        # percorrer a schedule e calcular a media semanal
-        # de cada agente
-        # calcular total horas / total semanas
-        # calcular quantas semanas / mês. Ex 30/7 = 4,3 semanas
+        # go through the schedule and calculate the weekly average of each employee
+        # calculate the weekly average
+        # calculate how many weeks per month. E.g: 30/7 = 4,3 weeks
         try:
             listAverage = []
             total_weeks = round((len(days) / 7), 2)
-            # print(total_weeks)
-
-            # quantas horas ele trabalhou a cada 7 dias?
+            
             for i in range(len(schedule['total'])):
-                # print(schedule['total'][i])
                 total = schedule['total'][i]
                 weekly_average = int(total / total_weeks)
                 listAverage.append(weekly_average)
 
-            # inclui a coluna media semanal na schedule
             schedule['wa'] = listAverage
 
             return schedule
@@ -28,19 +23,15 @@ class EvaluateSchedule:
 
     def calculateAdjusts(schedule, days):
         #print("calculating Adjusts")
-        # percorrer a schedule e calcular as horas
-        # faltantes ou a mais baseado na media semanal
-        # a media ideal (40h) vezes o numero de semanas
-
+        # go through the schedule and calculate the missing or extra hours
+        
         try:
             listAdjusts = []
             total_weeks = round((len(days) / 7), 2)
             for i in range(len(schedule['wa'])):
                 hours_to_adjust = 0
                 employee_average = schedule['wa'][i]
-                # print(employee_average)
-                # print(total_weeks)
-
+                
                 hours_to_adjust = int(employee_average - 40) * total_weeks
                 listAdjusts.append(hours_to_adjust)
 
@@ -54,15 +45,12 @@ class EvaluateSchedule:
 
     def compensatoryTime(schedule, employees, data):
         #print("compensatory time adjust")
-        # percorrer a schedule e para cada agente alimentar o banco de horas
-        # adicionando ou discontando horas
-
+        # go through the schedule and calculate the compensatory time bank
+        
         try:
             over_list = []
             comp_time = data["comp_time"]
-            # print(comp_time)
-            # print(adjust_list)
-
+            
             for employee in range(len(employees)):
                 over = 0
                 adjust = schedule['adj'][employee]
@@ -78,8 +66,7 @@ class EvaluateSchedule:
                     print(adjust) """
                     if employees[employee] == emp and adjust != 0:
                         over = hrs + adjust
-                        # print(over)
-
+                        
                 over_list.append(over)
 
             schedule['over'] = over_list
