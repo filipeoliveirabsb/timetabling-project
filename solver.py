@@ -162,10 +162,10 @@ class Solver:
         except:
             print('There was an error on get best schedule')
 
-    # implement time bank usage in v2.
+    # implement bank of hours usage in v2.
     def generateWithCompTime(schedules, bestSchedule):
         #print("Calculating best schedule")
-        # consider the hours bank with 24-hour use, when there is
+        # consider the bank of hours with 24-hour use, when there is,
         # and the minimum of 2 employees per shift
         for i in range(len(bestSchedule)):
             print('em desenvolvimento')

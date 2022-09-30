@@ -72,10 +72,10 @@ month:
   jan:
     absences:
       - [employee: s1, type: VA, days: [4, 5, 6, 7, 8, 9, 10, 11], hours: 0]
-      - [employee: s1, type: AJ, days: [14, 15, 16, 17], hours: 8]
+      - [employee: s1, type: AJ, days: [14, 15, 16, 17], hours: 0]
       - [employee: s2, type: LI, days: [0, 1, 2, 3, 4], hours: 0]
       - [employee: s85, type: DO, days: [15, 16, 20, 27, 30], hours: 0]
-      - [employee: s59, type: AJ, days: [9, 10, 11, 12, 13], hours: 16]
+      - [employee: s59, type: AJ, days: [9, 10, 14], hours: 0]
 
 
 order_possibilities:
@@ -116,8 +116,8 @@ last_schedule:
 
 # compensatory time off
 comp_time:
-  - [employee: s1, hours: 8]
-  - [employee: s1, hours: 8]
-  - [employee: s2, hours: 8]
+  - [employee: s1, hours: 24]
+  - [employee: s31, hours: 8]
+  - [employee: s2, hours: 12]
   - [employee: s85, hours: 18]
   - [employee: s59, hours: 8]

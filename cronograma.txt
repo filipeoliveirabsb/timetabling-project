@@ -25,7 +25,8 @@ refactor
     otimizar o código evitando redundancias
 
 
-
+"nesta primeira versão não nos preocupamos com as utilização do saldo do banco de horas 
+para o próximo mês, mas sim com o saldo e geração de novas horas, considerando o mínimo possível."
 
 
 
