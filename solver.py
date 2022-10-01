@@ -146,18 +146,17 @@ class Solver:
 
             # if the tie persists, all remaining schedules must be returned
             # return the best shcedule(s)
-            print('final')
             schedules_final = []
             for i in range(len(schedules)):
-                # print(i)
                 for j in range(len(best_list)):
                     if i == best_list[j]:
                         schedules_final.append(schedules[i])
 
-            for i in range(len(schedules_final)):
-                print(schedules_final[i])
+            # optional
+            """ for i in range(len(schedules_final)):
+                print(schedules_final[i]) """
 
-            # return schedules
+            return schedules_final
 
         except:
             print('There was an error on get best schedule')

@@ -102,12 +102,34 @@ def create_scheduling(schedule_table, days, employees, team_employee, scale_days
                 # employee absences
                 (toa, hrs) = get_employee_absences(
                     absences, team_employee, day)
-                
+
                 # at this point we consider legal days off as hours worked
                 if (toa == 'AJ'):
                     schedule_table.iloc[employee, day] = hrs
                 else:
                     schedule_table.iloc[employee, day] = 24
+
+
+def final_scheduling(schedule_print, days, employees, absences):
+    for day in range(len(days)):
+        for employee in range(len(employees)):
+
+            if schedule_print.iloc[employee, day] >= 0:
+                for ab in range(len(absences)):
+                    # employee, type of absence, days of absence
+                    (emp, toa, doa, hrs) = absences[ab]
+                    emp = emp['employee']
+                    toa = toa['type']
+                    doa = doa['days']
+                    hrs = hrs['hours']
+
+                    if employees[employee] == emp:
+
+                        if day in doa:
+                            # at this point we consider all abesences
+                            schedule_print.iloc[employee, day] = toa
+
+    return schedule_print
 
 
 if __name__ == '__main__':
@@ -133,7 +155,7 @@ if __name__ == '__main__':
     schedules_generated = []
     data_days = []
     # e.g: jan = 0, feb = 1, ...
-    (_, days_t) = months[1]
+    (_, days_t) = months[0]
 
     for d in range(1, days_t + 1):
         data_days.append(d)
@@ -172,17 +194,25 @@ if __name__ == '__main__':
 
                 schedules_generated.append(schedule_final)
 
+        # optional
         for s in schedules_generated:
             print(s)
 
-        print('foram geradas', len(schedules_generated),
-              'possibilidades de ordem de escala')
-
         # instantiate and call the solver to find the best scale(s)
-        Solver.get_best_schedule(schedules_generated)
+        schedules_final = Solver.get_best_schedule(schedules_generated)
+
+        # print the best schedule(s) with absences:
+        print("--------------------------------------------------------------------------------- Best Schedules --------------------------------------------------------------------------------------")
+        for s in schedules_final:
+            print(final_scheduling(s, data_days, employees, absences))
 
         # calculate the runtime of the program
-        print('runtime:', round((time.time() - start_time), 5), ' seconds')
+        print("---------------------------------------------------------------------------------   Statistics   --------------------------------------------------------------------------------------")
+        print('foram geradas', len(schedules_generated),
+              'possibilidades de ordem de escala')
+        print('foram selecionadas', len(schedules_final),
+              'escalas ideais')
+        print('Runtime:', round((time.time() - start_time), 5), ' seconds')
 
     except:
         print("There was an error generating the scale")

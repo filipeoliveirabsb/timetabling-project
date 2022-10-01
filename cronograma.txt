@@ -14,7 +14,7 @@ banco de horas / compensatory time off -- ok
 não considerar fração de horas (round) -- ok
 tratamento de erros -- ok
 
-na geração da escala final, mostrar as ausências -- 
+na geração da escala final, mostrar as ausências -- ok 
 calcular o tempo de execução (performance) -- ok
 
 refactor
