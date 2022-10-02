@@ -147,7 +147,7 @@ if __name__ == '__main__':
         employees = data["employees"]
         schedule = data["team_schedule"]
 
-        absences = data["month"]["jan"]["absences"]
+        absences = data["month"]["mar"]["absences"]
     except:
         print('There was an error reading the settings file')
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     schedules_generated = []
     data_days = []
     # e.g: jan = 0, feb = 1, ...
-    (_, days_t) = months[0]
+    (_, days_t) = months[2]
 
     for d in range(1, days_t + 1):
         data_days.append(d)

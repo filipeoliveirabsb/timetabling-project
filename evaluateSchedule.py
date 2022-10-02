@@ -8,7 +8,7 @@ class EvaluateSchedule:
         try:
             listAverage = []
             total_weeks = round((len(days) / 7), 2)
-            
+
             for i in range(len(schedule['total'])):
                 total = schedule['total'][i]
                 weekly_average = int(total / total_weeks)
@@ -24,15 +24,15 @@ class EvaluateSchedule:
     def calculateAdjusts(schedule, days):
         #print("calculating Adjusts")
         # go through the schedule and calculate the missing or extra hours
-        
+
         try:
             listAdjusts = []
             total_weeks = round((len(days) / 7), 2)
             for i in range(len(schedule['wa'])):
                 hours_to_adjust = 0
                 employee_average = schedule['wa'][i]
-                
-                hours_to_adjust = int(employee_average - 40) * total_weeks
+
+                hours_to_adjust = int(int(employee_average - 40) * total_weeks)
                 listAdjusts.append(hours_to_adjust)
 
             # inclui a coluna ajustes na schedule
@@ -46,11 +46,11 @@ class EvaluateSchedule:
     def compensatoryTime(schedule, employees, data):
         #print("compensatory time adjust")
         # go through the schedule and calculate the compensatory time bank
-        
+
         try:
             over_list = []
             comp_time = data["comp_time"]
-            
+
             for employee in range(len(employees)):
                 over = 0
                 adjust = schedule['adj'][employee]
@@ -66,7 +66,7 @@ class EvaluateSchedule:
                     print(adjust) """
                     if employees[employee] == emp and adjust != 0:
                         over = hrs + adjust
-                        
+
                 over_list.append(over)
 
             schedule['over'] = over_list

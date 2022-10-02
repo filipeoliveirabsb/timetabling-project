@@ -17,7 +17,6 @@ class Solver:
 
                 # absolute value - distance to ideal value (40)
                 mod = abs(weekly_general_average - 40)
-
                 """ print('------ looking for best weekly average ------')
                 print(i)
                 print(weekly_general_average)
@@ -29,10 +28,10 @@ class Solver:
                     best_list.append(i)
                     save_best_wa = mod
                 else:
-                    if mod < save_best_wa:
-
+                    if mod < save_best_wa and len(best_list) > 0:
                         for j in range(len(best_list)):
-                            best_list.remove(j)
+                            if j in best_list:
+                                best_list.remove(j)
 
                         best_list.append(i)
                         save_best_wa = mod
@@ -61,10 +60,11 @@ class Solver:
                         list_best_adj.append(bs)
                         save_best_adj = total_adjusts
                     else:
-                        if total_adjusts < save_best_adj:
+                        if total_adjusts < save_best_adj and len(list_best_adj) > 0:
 
                             for j in range(len(list_best_adj)):
-                                list_best_adj.remove(j)
+                                if j in list_best_adj:
+                                    list_best_adj.remove(j)
 
                             list_best_adj.append(bs)
                             save_best_adj = total_adjusts
@@ -98,7 +98,8 @@ class Solver:
                         if total_hours > save_best_total:
 
                             for j in range(len(list_best_total)):
-                                list_best_total.remove(j)
+                                if j in list_best_total:
+                                    list_best_total.remove(j)
 
                             list_best_total.append(bs)
                             save_best_total = total_hours
@@ -132,7 +133,8 @@ class Solver:
                         if total_over < save_best_over:
 
                             for j in range(len(list_best_total)):
-                                list_best_over.remove(j)
+                                if j in list_best_over:
+                                    list_best_over.remove(j)
 
                             list_best_over.append(bs)
                             save_best_over = total_over
