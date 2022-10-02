@@ -17,6 +17,8 @@ tratamento de erros -- ok
 na geração da escala final, mostrar as ausências -- ok 
 calcular o tempo de execução (performance) -- ok
 
+testes -- ok
+
 refactor
     criar as classes 
         evaluateSchedule -- ok

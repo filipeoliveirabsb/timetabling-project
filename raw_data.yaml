@@ -80,14 +80,13 @@ month:
     absences:
       - [employee: s3, type: VA, days: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], hours: 0]
       - [employee: s4, type: LI, days: [0, 1, 2, 3, 4], hours: 0]
-      - [employee: s85, type: AJ, days: [18], hours: 0]
-      - [employee: s31, type: AJ, days: [12], hours: 0]
+      - [employee: s85, type: AJ, days: [18], hours: 0]      
 
   mar:
     absences:
       - [employee: s57, type: VA, days: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], hours: 0]
       - [employee: s3, type: LI, days: [0, 1, 2, 3, 4], hours: 0]
-      - [employee: s83, type: LI, days: [14, 15, 16, 17, 18], hours: 0]
+      - [employee: s83, type: DO, days: [14, 15, 16, 17, 18], hours: 0]
       
 
 
@@ -136,7 +135,7 @@ comp_time:
   - [employee: s4, hours: 21]
   - [employee: s29, hours: 34]
   - [employee: s30, hours: 34]
-  - [employee: s31, hours: 13]
+  - [employee: s31, hours: 34]
   - [employee: s32, hours: 34]
   - [employee: s56, hours: 8]
   - [employee: s57, hours: 8]
@@ -145,4 +144,4 @@ comp_time:
   - [employee: s82, hours: 34]
   - [employee: s83, hours: 34]
   - [employee: s84, hours: 34]
-  - [employee: s85, hours: 34]
+  - [employee: s85, hours: 13]
